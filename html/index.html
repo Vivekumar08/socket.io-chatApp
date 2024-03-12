@@ -1,0 +1,200 @@
+<!-- chatClient.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags for defining document settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the page -->
+    <title>Chat Application</title>
+    <!-- Internal CSS styles for the document -->
+    <style>
+        /* Prevent text selection on the page */
+        body {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Styling for private messages */
+        .private-message {
+            color: red;
+        }
+
+        /* Aligning sender's messages to the right */
+        .sender {
+            text-align: end;
+            align-self: flex-end;
+        }
+
+        /* Aligning receiver's messages to the left */
+        .receiver {
+            text-align: start;
+            align-self: flex-start;
+        }
+
+        /* Styling for the canvas element */
+        canvas {
+            border: 1px solid black;
+        }
+
+        /* Styling for heading tag */
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0px;
+        }
+
+        /* Styling for paragraph tag */
+        p {
+            margin-top: 0px;
+            font-size: 24px;
+            color: #666;
+        }
+
+        /* Styling for the container of the canvas */
+        #canvasContainer {
+            position: relative;
+            width: 800px;
+            /* Set the width of the canvas container */
+            height: 600px;
+            /* Set the height of the canvas container */
+        }
+
+        /* Styling for the container of the username input */
+        .usernameContainer {
+            display: flex;
+            width: 100%;
+            margin: 2%;
+            gap: 10px;
+        }
+
+        /* Styling for the overlay */
+        #overlay {
+            position: absolute;
+            padding: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Styling for text input */
+        input[type=text] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 70%;
+            box-sizing: border-box;
+        }
+
+        /* Styling for buttons */
+        button {
+            padding: 5px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            width: 25%;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Styling for hover effect on buttons */
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styling for scrollbar */
+        ::-webkit-scrollbar {
+            -webkit-appearance: none;
+            visibility: hidden;
+        }
+
+        /* Styling for the container of messages */
+        #messages {
+            max-height: 350px;
+            /* Specify the max height for messages */
+            display: list-item;
+            margin-bottom: 10px;
+            /* Optional: Add padding for spacing */
+            padding: 5px;
+            overflow-y: scroll;
+        }
+
+        /* Styling for the chat section */
+        #chatSection {
+            position: absolute;
+            height: 50px;
+            margin: 2%;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+
+        /* Styling for clear and disconnect buttons */
+        #clearButton,
+        #disconnect_as {
+            background-color: #EF0107;
+        }
+
+        /* Styling for hover effect on clear and disconnect buttons */
+        #clearButton:hover,
+        #disconnect_as:hover {
+            background-color: #BA0021;
+        }
+
+        /* Styling for the main chat section */
+        #chatMainSection {
+            display: flex;
+            width: 95%;
+            gap: 10px;
+        }
+
+        /* Styling for the send button */
+        #sendButton {
+            width: 33%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Container for the canvas and overlay -->
+    <div id="canvasContainer">
+        <canvas id="myCanvas" width="800" height="600"></canvas>
+        <div id="overlay">
+            <!-- Container for username input and buttons -->
+            <div class="usernameContainer">
+                <input type="text" id="usernameInput" placeholder="Enter your username">
+                <button id="connect_as">Connect As</button>
+                <button id="disconnect_as">Disconnect As</button>
+            </div>
+            <!-- Title and paragraph for acknowledgement message -->
+            <h1 id="mainTitle" style="display: none;">Acknowledgement Message:</h1>
+            <p id="mainPara" style="display: none;"></p>
+            <!-- Container for messages -->
+            <div id="messages"></div>
+            <!-- Container for chat input and buttons -->
+            <div id="chatSection" style="display: none;">
+                <div id="chatMainSection">
+                    <input type="text" id="messageInput" placeholder="Type your message">
+                    <button id="sendButton">Send</button>
+                    <button id="clearButton">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Socket.IO library -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- JavaScript file for client-side functionality -->
+    <script src="./script.js"></script>
+</body>
+
+</html>
